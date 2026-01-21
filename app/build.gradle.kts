@@ -6,6 +6,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("platform") {
+            storeFile = file("..\\platform.jks")
+            storePassword = "ldc123"
+            keyPassword = "ldc123"
+            keyAlias = "platform"
+        }
+    }
     namespace = "com.che2n3jigw.touchsimulator"
     compileSdk {
         version = release(36)
@@ -26,6 +34,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("platform")
+        }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("platform")
         }
     }
     compileOptions {
